@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "gatsby"
 import Logo from "../../images/lol.png";
@@ -20,9 +20,17 @@ const Wrapper = styled.div`
 `;
 
 const Nav = styled.nav`
+  padding-top: 15px;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-bottom: 15px;
   display: flex;
   gap: var(--font-size-md);
   align-items: center;
+  white-space: nowrap;
+  box-shadow: 0 0.25rem 1rem rgb(0 0 0 / 12%);
+  border-radius: 3rem;
+  z-index: 13;
 `;
 
 
@@ -30,6 +38,7 @@ const NavLink = styled(UnstyledLink)`
   /* ${blueBox}; */
 
   font-weight: 500;
+  font-size: 16px;
   color: var(--color-text);
   
   transition: color 0.175s var(--easing);
