@@ -12,6 +12,7 @@ module.exports = {
     "gatsby-plugin-styled-components",
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
+    "gatsby-plugin-dark-mode",
     "gatsby-transformer-sharp",
     "gatsby-transformer-json",
     {

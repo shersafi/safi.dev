@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "gatsby"
-import Logo from "../../images/lol.png";
+import Logo from "../../images/icon.png";
 import { nav } from "../../content/config";
 import { blueBox } from "../../theme/mixins";
 import { UnstyledLink } from "../UnstyledLink";
+import Darkmode from 'darkmode-js';
+import darklogo from "../../images/icon-dark.png";
 
 const Wrapper = styled.div`
   padding-top: 20px;
@@ -17,6 +19,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
 `;
 
 const Nav = styled.nav`
@@ -56,6 +59,8 @@ export const Navbar = () => {
           <img src={Logo} className="favicon" width="60" height="60" alt="Safi" />
         </Link>
       </div>
+
+
       <Nav>
         {nav &&
           nav.map(({ name, to }, i) => (
