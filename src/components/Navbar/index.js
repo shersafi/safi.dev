@@ -6,7 +6,29 @@ import { nav } from "../../content/config";
 import { blueBox } from "../../theme/mixins";
 import { UnstyledLink } from "../UnstyledLink";
 import Darkmode from 'darkmode-js';
-import darklogo from "../../images/icon-dark.png";
+import darkLogo from "../../images/icon-dark.png";
+import '../Navbar/darkmode-js.css';
+
+
+const options = {
+  bottom: '32px', // default: '32px'
+  right: '32px', // default: '32px'
+  left: 'unset', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#1F1F2D',  // default: '#100f2c'
+  buttonColorLight: '#E0E0D2', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '⭐', // default: ''\
+  autoMatchOsTheme: true // default: true
+}
+
+
+const darkmode = new Darkmode(options);
+
+darkmode.showWidget();
+
 
 const Wrapper = styled.div`
   padding-top: 20px;
@@ -34,6 +56,8 @@ const Nav = styled.nav`
   box-shadow: 0 0.25rem 1rem rgb(0 0 0 / 12%);
   border-radius: 3rem;
   z-index: 13;
+
+  
 `;
 
 
@@ -49,6 +73,15 @@ const NavLink = styled(UnstyledLink)`
   &:hover {
     color: #000000;
   }
+
+  .darkmode--activated &:hover {
+    color: #E67219;
+  }
+
+  .darkmode--activated & {
+    color: #E0E0D2;
+  }
+  
 `;
 
 export const Navbar = () => {
@@ -56,10 +89,9 @@ export const Navbar = () => {
     <Wrapper>
       <div className="brand">
         <Link to ={"/"} aria-label="Brand Logo" className="brand__logo">
-          <img src={Logo} className="favicon" width="60" height="60" alt="Safi" />
+          <img class="site-logo" src={Logo} width="60" height="60"/>
         </Link>
       </div>
-
 
       <Nav>
         {nav &&

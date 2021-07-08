@@ -1,0 +1,3 @@
+.darkmode--activated .site-logo {
+  filter: invert(100%);
+}
