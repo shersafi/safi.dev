@@ -7,6 +7,9 @@ import { Sidenote } from "../components/Sidenote";
 import { TextLink } from "../components/TextLink";
 import { Emoji } from "../components/Emoji";
 
+import Layout from "../components/layout"
+
+
 const Hero = styled.header`
   p {
     font-size: var(--font-size-md);
@@ -18,11 +21,12 @@ const IndexPage = () => {
     <Layout title="Index">
       <Container id="main-content">
         <Hero>
-          <h1>Hey there!</h1>
-          <p>
-            Hi! I'm Ben, a third year Computer Science student at the University of York, currently
-            working on placement at <TextLink to="https://arm.com">Arm</TextLink>.
-          </p>
+          <Image
+            img src="../images/me.png" alt="cur"
+            height={350}
+            width={700}
+            style={{ alignSelf: 'center' }}
+          />
         </Hero>
         <section>
           <h2>This Website</h2>

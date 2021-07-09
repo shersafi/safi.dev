@@ -85,6 +85,7 @@ export const GlobalStyle = createGlobalStyle`
       border-radius: 20px;
       border: 3px solid var(--color-background);
     }
+    
   }
 
   h1,h2,h3 {

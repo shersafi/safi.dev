@@ -6,7 +6,6 @@ import { nav } from "../../content/config";
 import { blueBox } from "../../theme/mixins";
 import { UnstyledLink } from "../UnstyledLink";
 import Darkmode from 'darkmode-js';
-import darkLogo from "../../images/icon-dark.png";
 import '../Navbar/darkmode-js.css';
 
 
@@ -20,7 +19,7 @@ const options = {
   buttonColorDark: '#1F1F2D',  // default: '#100f2c'
   buttonColorLight: '#E0E0D2', // default: '#fff'
   saveInCookies: true, // default: true,
-  label: '⭐', // default: ''\
+  label: '🌓', // default: ''\
   autoMatchOsTheme: true // default: true
 }
 
@@ -85,6 +84,12 @@ const NavLink = styled(UnstyledLink)`
 `;
 
 export const Navbar = () => {
+
+  const [navbar, setNavbar] = useState(false);
+
+
+
+
   return (
     <Wrapper>
       <div className="brand">

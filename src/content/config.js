@@ -21,15 +21,11 @@ export const nav = [
     to: "/",
   },
   {
-    name: "About",
-    to: "/about",
-  },
-  {
     name: "Projects",
     to: "/projects",
   },
   {
-    name: "Posts",
-    to: "/posts",
+    name: "Blog",
+    to: "/blog",
   },
 ];

@@ -1,0 +1,53 @@
+@import "../components/base";
+
+.content {
+  text-align: center;
+  padding: 50px 0;
+}
+
+.title {
+  text-align: left;
+  margin-bottom: 25px;
+
+  .#{$dark-class} & {
+    color: white;
+  }
+}
+
+.centered {
+  min-height: calc(100vh - 97px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .title {
+    text-align: center;
+  }
+}
+
+@media all and (min-width: $width-max) {
+  .content {
+    max-width: $width-max - 50px;
+    width: $width-max - 50px;
+  }
+}
+
+@media all and (min-width: $width-xlarge) and (max-width: $width-max - 1px) {
+  .content {
+    max-width: $width-xlarge - 50px;
+    width: $width-xlarge - 50px;
+  }
+}
+
+@media all and (min-width: $width-xlarge) {
+  .content {
+    margin: auto;
+  }
+}
+
+@media all and (max-width: $width-xlarge) {
+  .content {
+    padding: 50px 20px 0;
+  }
+}

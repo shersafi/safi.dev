@@ -1,6 +1,5 @@
 import React from "react";
 
-import Darkmode from 'darkmode-js';
 import { Navbar } from "../Navbar";
 import { Footer } from "../Footer";
 import { SkipToContent } from "../SkipToContent";
