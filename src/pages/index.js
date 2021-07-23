@@ -1,86 +1,177 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-
+import { graphql } from "gatsby";
+import { format, parseISO } from "date-fns";
 import { Layout } from "../components/Layout";
 import { Container } from "../components/Container";
 import { Sidenote } from "../components/Sidenote";
 import { TextLink } from "../components/TextLink";
-import { Emoji } from "../components/Emoji";
+import { Link } from 'gatsby';
+import { CardLink } from "../components/Card";
+import me from '../images/me.png'
 
-import Layout from "../components/layout"
 
 
 const Hero = styled.header`
   p {
-    font-size: var(--font-size-md);
+    font-size: 20px;
+
+  }
+  h1 {
+    text-align: center;
+    font-size: 44px;
+  }
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transform: scale(0.9, 0.9);
+    -ms-transform: scale(0.9, 0.9);
+    -webkit-transform: scale(0.9, 0.9);
+  }
+
+  .wave {
+    animation-name: wave-animation;  /* Refers to the name of your @keyframes element below */
+    animation-duration: 2.5s;        /* Change to speed up or slow down */
+    animation-iteration-count: infinite;  /* Never stop waving :) */
+    transform-origin: 70% 70%;       /* Pivot around the bottom-left palm */
+    display: inline-block;
+  }
+  
+  @keyframes wave-animation {
+      0% { transform: rotate( 0.0deg) }
+     10% { transform: rotate(14.0deg) }  /* The following five values can be played with to make the waving more or less extreme */
+     20% { transform: rotate(-8.0deg) }
+     30% { transform: rotate(14.0deg) }
+     40% { transform: rotate(-4.0deg) }
+     50% { transform: rotate(10.0deg) }
+     60% { transform: rotate( 0.0deg) }  /* Reset for the last half to pause */
+    100% { transform: rotate( 0.0deg) }
   }
 `;
 
-const IndexPage = () => {
-  return (
-    <Layout title="Index">
+const PostsContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+
+  grid-row-gap: var(--font-size-base);
+
+
+  .sidebyside {
+    width: 100%;
+    height: auto;
+    margin: auto;
+    position:relative;
+  }
+
+  .one {
+    width: 15%;
+    height: 15px;
+    float: left;
+    font-size: var(--font-size-sm);
+    font-weight: lighter;
+    padding: 5px 0;
+    color: #79798A;
+  }
+
+  .darkmode--activated .one {
+    filter: invert(100%);
+  }
+
+  
+
+  .two {
+    margin-left: 87px;
+    height: 15px;
+    font-size: var(--font-size-sm);
+    background-color: #1F1F2D;
+    color: white;  
+    font-style: normal;
+    font-weight: lighter;
+    border-radius: 20px;
+    width: 120px;
+    height: auto;
+    left: 10px;
+    line-height: 20px;
+    padding-top: 2px;
+    vertical-align:top;
+    transform: translateY(10%);
+    
+
+  }
+
+
+}
+`;
+
+const IndexPage = ({ 
+  data: { 
+    allMdx: { nodes }, 
+  }, 
+}) => {
+  
+  const post = nodes
+    .map(({ id, frontmatter, fields: { slug } }) => (
+      
+      <CardLink title={frontmatter.title} to={slug} key={id}>
+        <h2 class="latest-post__title">
+          <div className="sidebyside">
+            <div className="one">
+              {format(parseISO(frontmatter.date), "dd/MM/yyyy")}
+            </div>
+  
+            <div className="two">
+              Latest Writing
+            </div>
+          </div>
+        </h2>    
+        <p>{frontmatter.description}</p>
+      </CardLink>
+
+    
+    ));
+  
+  return ( 
+    <Layout title="Home">
       <Container id="main-content">
         <Hero>
-          <Image
-            img src="../images/me.png" alt="cur"
-            height={350}
-            width={700}
-            style={{ alignSelf: 'center' }}
-          />
+          <h1>Hi there, I am Sher Safi. <span class="wave">👋</span></h1>
+          <img src={me} class="center"/>
+          <p>
+            Software Engineer currently based out of Toronto. My interests are Cryptography & Machine Learning. I am also an <TextLink to="https://github.com/shersafi">open-source enthusiast.</TextLink>
+          </p>
+
         </Hero>
-        <section>
-          <h2>This Website</h2>
-          <p>
-            I recently decided to treat myself to a new website, because my{" "}
-            <TextLink to="https://bensilverman.co.uk">old one</TextLink> was beginning to look a
-            little dated, and I've learned a lot about web development in the two years since I
-            wrote it!
-          </p>
-          <p>
-            I wanted to take this as an opportunity to build something with my favourite new tools
-            (namely React and Gatsby) that:
-          </p>
-          <ul>
-            <li>looked a lot nicer, with fully responsive layout and styling</li>
-            <li>
-              packed in a lot more functionality, like reusable components, blog posts, and more
-            </li>
-          </ul>
-          <p>
-            I might write a little post detailing the full site stack at some point, but I'm mainly
-            focussed on actually coding the thing at the moment!
-          </p>
-          <Sidenote>
-            <p>
-              Recently I discvered a new term I really liked:{" "}
-              <b>
-                <i>digital gardening.</i>
-              </b>
-            </p>
-            <p>
-              This lovely, horticultural phrase refers to the act of "cultivating" a website full of
-              little snippets, posts and tidbits, letting it naturally evolve over time instead of
-              strictly managing and defining its structure.
-            </p>
-            <p>
-              I really like the concept of this, so it's not entirely impossible that I'll begin to
-              use this site as my own <Emoji emoji="🌱" /> digital garden <Emoji emoji="🌱" /> of
-              sorts, setting it up to hold various different types of{" "}
-              <TextLink to="/posts">blog posts</TextLink>, snippets, and pages that I think are
-              interesting or useful (either to me or others).
-            </p>
-          </Sidenote>
-        </section>
-        <section>
-          <h2>Contact Me</h2>
-          <p>
-            If you'd like to get in touch, please send me a DM on{" "}
-            <TextLink to="https://twitter.com/bensilverman_">Twitter</TextLink>!
-          </p>
-        </section>
+
+        
+          <PostsContainer>{post[0]}</PostsContainer>
+        
       </Container>
     </Layout>
   );
 };
+
+
+
+export const query = graphql`
+  query {
+    allMdx(
+      sort: { fields: [frontmatter___date], order: DESC }
+      filter: { frontmatter: { published: { eq: true } } }
+    ) {
+      nodes {
+        id
+        frontmatter {
+          title
+          date
+          description
+        }
+        fields {
+          slug
+        }
+      }
+    }
+  }
+`;
 
 export default IndexPage;

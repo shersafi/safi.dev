@@ -3,7 +3,6 @@ import { graphql } from "gatsby";
 import styled from "styled-components";
 import { BiSearch } from "react-icons/bi";
 import { format, parseISO } from "date-fns";
-
 import { Container } from "../components/Container";
 import { Layout } from "../components/Layout";
 import { CardLink } from "../components/Card";
@@ -41,6 +40,7 @@ const PostsContainer = styled.div`
 const Date = styled.p`
   font-style: italic;
   font-size: var(--font-size-sm);
+  
 `;
 
 const BlogPage = ({

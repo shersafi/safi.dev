@@ -2,6 +2,7 @@ import React from "react";
 import { graphql, useStaticQuery } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import styled from "styled-components";
+import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 
 import { UnstyledLink } from "../../UnstyledLink";
 
@@ -11,74 +12,58 @@ const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   gap: calc(2 * var(--font-size-base));
+  transition: top ease 0.5s;
+  position: relative;
+
+
 `;
+
 
 const Project = styled.article`
   position: relative;
-  height: 150px;
-  overflow: hidden;
+  height: 100%;
   border-radius: 10px;
+  box-shadow: 0 0.25rem 1rem rgb(0 0 0 / 12%);
+  transition: top ease 0.5s;
 
-  box-shadow: var(--box-shadow-light);
-
-  &:after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: linear-gradient(-150deg, rgba(0, 0, 0, 0) 0%, hsla(0, 0%, 0%, 0.6) 100%);
-    opacity: 1;
-
-    backdrop-filter: blur(2px);
-
-    transition: opacity 0.5s ease;
-
-    ${media("sm")} {
-      opacity: 0;
-    }
+  .smicons {
+    display: grid;
+    grid-template-columns: repeat(2, min-content);
+    grid-template-rows: min-content;
+    gap: 20px;
   }
 
-  &:hover:after {
-    opacity: 1;
-  }
+  
+  
+  
 `;
 
 const Title = styled.h2`
-  color: white;
+  color: #1F1F2D;
 `;
 
 const Body = styled.div`
   position: absolute;
   z-index: 1;
-  padding: calc(2 * var(--font-size-base));
-  color: white;
+  padding: 30px;
+  color: #1F1F2D;
+  transition: top ease 0.5s;
+  
+  line-height: 50px;
+  
 
-  height: 100%;
+  height: auto;
+  width: 80%;
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
-
-  text-shadow: 0 0 35px black;
+  justify-content: top;
+  
 
   opacity: 1;
   transform: translateY(0);
 
-  ${media("sm")} {
-    opacity: 0;
-    transform: translateY(10px);
-  }
 
-  font-size: var(--font-size-md);
-
-  transition: opacity 0.25s var(--easing), transform 0.25s var(--easing);
-
-  ${Project}:hover & {
-    opacity: 1;
-    transform: translateY(0);
-  }
 `;
 
 export const FeaturedProjects = () => {
@@ -99,12 +84,12 @@ export const FeaturedProjects = () => {
               image {
                 childImageSharp {
                   gatsbyImageData(
-                    width: 750
-                    height: 400
+                    width: 702
+                    height: 220
                     quality: 100
                     layout: CONSTRAINED
-                    placeholder: BLURRED
                     formats: [AUTO, WEBP, AVIF]
+                    
                   )
                 }
               }
@@ -123,12 +108,39 @@ export const FeaturedProjects = () => {
         projects.map(({ node: { id, frontmatter: { title, description, tags, link, image } } }) => (
           <UnstyledLink key={id} to={link}>
             <Project>
-              <Body>
+              
+            
+              <Body> 
                 <Title>{title}</Title>
                 <p>{description}</p>
+                <ol class="smicons">
+                  <a
+                      
+                      href="https://github.com/shersafi"
+                      target="_blank"
+                      class="icons"
+                      rel="noopener noreferrer"
+                  >
+                      <FaGithub size={30} />
+                  </a>
+
+                  <a
+                      href="https://github.com/shersafi"
+                      target="_blank"
+                      class="icons"
+                      rel="noopener noreferrer"
+                  >
+                      <FaExternalLinkAlt size={30} />
+                  </a>
+
+                  
+                </ol>
+                
               </Body>
               <GatsbyImage image={getImage(image)} alt={description} />
             </Project>
+
+            
           </UnstyledLink>
         ))}
     </Wrapper>

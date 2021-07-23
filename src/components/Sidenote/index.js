@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Sidenote = styled.aside`
   padding: var(--font-size-base);
-  margin: calc(2 * var(--font-size-base)) 0;
   border-radius: var(--border-radius);
 
   color: var(--color-text);

@@ -1,30 +1,61 @@
 import React from "react";
 import styled from "styled-components";
-import { blueBox } from "../../theme/mixins";
 
-import { Emoji } from "../Emoji";
+import { FaTwitter, FaGithub, FaLinkedin } from "react-icons/fa";
 
-const Wrapper = styled.footer`
+const FooterWrapper = styled.footer`
+  color: rgba(0, 0, 0, 0.7);
+  padding: 40px;
+`;
+
+const CopyRight = styled.h4`
+  color: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  font-weight: 400;
+  font-size: 0.9em;
+  text-rendering: optimizeLegibility;
+  line-height: 1.65rem;
+  margin: 0;
+`;
+
+const SocialMedia = styled.div`
   display: flex;
-  justify-content: center;
+  margin: 10px auto;
+  text-align: center;
   align-items: center;
-
-  margin-top: var(--font-size-lg);
-  padding: var(--font-size-lg) 0;
-
-  p {
-    ${blueBox};
-
-    font-weight: 500;
+  justify-content: center;
+  a {
+    padding: 0 5px;
   }
 `;
 
-export const Footer = () => {
-  return (
-    <Wrapper>
-      <p>
-        Made with <Emoji emoji="☕" /> in the UK!
-      </p>
-    </Wrapper>
-  );
-};
+const Footer = () => (
+  <FooterWrapper>
+    <CopyRight>&copy; {new Date().getYear() + 1900} Sher Safi</CopyRight>
+    <SocialMedia>
+      <a
+        href="https://github.com/shersafi"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FaGithub size={22} />
+      </a>
+      <a
+        href="https://twitter.com/SherSafi10"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FaTwitter size={22} />
+      </a>
+      <a
+        href="https://www.linkedin.com/in/sher-safi-7841b31ba/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FaLinkedin size={22} />
+      </a>
+    </SocialMedia>
+  </FooterWrapper>
+);
+
+export default Footer;

@@ -69,6 +69,9 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 400;
 
     background-color: var(--color-background);
+
+    
+
     color: var(--color-text);
 
 

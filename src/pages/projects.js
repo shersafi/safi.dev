@@ -11,16 +11,12 @@ const ProjectsPage = () => {
       <Container>
         <header>
           <h1>Projects</h1>
+          <p>
+            What I am currently working on in my free time. All of my projects are available on <TextLink to="https://github.com/shersafi">here.</TextLink>
+          </p>
         </header>
         <FeaturedProjects />
-        <section>
-          <h2>Other Stuff</h2>
-          <p>
-            I host all of my projects over on{" "}
-            <TextLink to="https://github.com/benslv">GitHub</TextLink>, so check that out if
-            you&apos;re interested to see what else I&apos;ve worked on!
-          </p>
-        </section>
+
       </Container>
     </Layout>
   );

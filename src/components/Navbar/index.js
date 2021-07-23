@@ -37,6 +37,8 @@ const Wrapper = styled.div`
 
   background-color: var(--color-background);
 
+
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -84,8 +86,6 @@ const NavLink = styled(UnstyledLink)`
 `;
 
 export const Navbar = () => {
-
-  const [navbar, setNavbar] = useState(false);
 
 
 
