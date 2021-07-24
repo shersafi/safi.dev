@@ -12,25 +12,59 @@ const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   gap: calc(2 * var(--font-size-base));
-  transition: top ease 0.5s;
+  transition: top ease 0.1s;
   position: relative;
 
+  
 
 `;
 
 
 const Project = styled.article`
+  background-color: white;
+
+  .darkmode--activated & {
+    background-color: #E0E0D2;
+  }
+
   position: relative;
-  height: 100%;
   border-radius: 10px;
   box-shadow: 0 0.25rem 1rem rgb(0 0 0 / 12%);
+  
+  top: 0;
   transition: top ease 0.5s;
+
+  height: calc(260px - 2vw);
+
+  &:hover {
+    top: -10px;
+  }
 
   .smicons {
     display: grid;
     grid-template-columns: repeat(2, min-content);
     grid-template-rows: min-content;
     gap: 20px;
+  }
+
+  .languages {
+    display: block; 
+    position: relative;
+    margin-left: 110px; 
+    margin-right: auto;
+    margin-top: -57px;
+    border-radius: 10px;
+    background-color: #2F3136;
+    color: white;
+    padding: 1px 8px 1px 8px;
+    height: 30px;
+    width: calc(290px - 4%);
+    line-height: 1.8;
+    font-weight: bold;
+    font-family: "Courier New"
+
+    
+    
   }
 
   
@@ -53,7 +87,7 @@ const Body = styled.div`
   
 
   height: auto;
-  width: 80%;
+  width: 75%;
 
   display: flex;
   flex-direction: column;
@@ -62,6 +96,8 @@ const Body = styled.div`
 
   opacity: 1;
   transform: translateY(0);
+
+  
 
 
 `;
@@ -79,6 +115,8 @@ export const FeaturedProjects = () => {
             frontmatter {
               title
               description
+              language
+              github
               tags
               link
               image {
@@ -105,18 +143,19 @@ export const FeaturedProjects = () => {
   return (
     <Wrapper>
       {projects &&
-        projects.map(({ node: { id, frontmatter: { title, description, tags, link, image } } }) => (
-          <UnstyledLink key={id} to={link}>
+        projects.map(({ node: { id, frontmatter: { title, description, tags, link, image, language, github } } }) => (
             <Project>
               
             
               <Body> 
                 <Title>{title}</Title>
                 <p>{description}</p>
+
+                
                 <ol class="smicons">
                   <a
                       
-                      href="https://github.com/shersafi"
+                      href={github}
                       target="_blank"
                       class="icons"
                       rel="noopener noreferrer"
@@ -125,23 +164,25 @@ export const FeaturedProjects = () => {
                   </a>
 
                   <a
-                      href="https://github.com/shersafi"
+                      href={link}
                       target="_blank"
                       class="icons"
                       rel="noopener noreferrer"
                   >
                       <FaExternalLinkAlt size={30} />
                   </a>
-
-                  
+       
                 </ol>
+
+                <div class="languages">{language}</div>
                 
               </Body>
+              
               <GatsbyImage image={getImage(image)} alt={description} />
             </Project>
 
             
-          </UnstyledLink>
+
         ))}
     </Wrapper>
   );

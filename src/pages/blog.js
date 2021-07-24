@@ -67,10 +67,9 @@ const BlogPage = ({
     <Layout title="Blog">
       <Container as="div">
         <header>
-          <h1>Posts</h1>
+          <h1>Blog</h1>
           <p>
-            Here's a collection of posts I've written about different things! Probably (mostly) all
-            programming-related but who knows? Maybe some other topics will slip in here too.
+            A collection of what I am currently working on, most of which is Mathematics and programming-related. I may post an occasional, off-topic blog post though.
           </p>
           <PostSearch>
             <input
