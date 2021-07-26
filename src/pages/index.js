@@ -48,6 +48,8 @@ const Hero = styled.header`
      60% { transform: rotate( 0.0deg) }  /* Reset for the last half to pause */
     100% { transform: rotate( 0.0deg) }
   }
+
+  }
 `;
 
 const PostsContainer = styled.div`
@@ -57,13 +59,6 @@ const PostsContainer = styled.div`
   grid-row-gap: var(--font-size-base);
 
 
-  .sidebyside {
-    width: 100%;
-    height: auto;
-    margin: auto;
-    position:relative;
-  }
-
   .one {
     width: 15%;
     height: 15px;
@@ -72,37 +67,31 @@ const PostsContainer = styled.div`
     font-weight: lighter;
     padding: 5px 0;
     color: #79798A;
+    transform: translateY(-20%);
   }
-
-  .darkmode--activated .one {
-    filter: invert(100%);
-  }
-
-  
 
   .two {
-    margin-left: 87px;
-    height: 15px;
+    position: relative;
     font-size: var(--font-size-sm);
     background-color: #1F1F2D;
     color: white;  
     font-style: normal;
     font-weight: lighter;
     border-radius: 20px;
-    width: 120px;
-    height: auto;
-    left: 10px;
+    text-align: center;
     line-height: 20px;
-    padding-top: 2px;
-    vertical-align:top;
-    transform: translateY(10%);
-    
-
+    width: 115px;
+    height: 20px;
+    left: 85px;
+    bottom: 18px;
   }
 
 
+
+  
 }
 `;
+
 
 const IndexPage = ({ 
   data: { 
@@ -115,15 +104,13 @@ const IndexPage = ({
       
       <CardLink title={frontmatter.title} to={slug} key={id}>
         <h2 class="latest-post__title">
-          <div className="sidebyside">
-            <div className="one">
-              {format(parseISO(frontmatter.date), "dd/MM/yyyy")}
-            </div>
-  
-            <div className="two">
-              Latest Writing
-            </div>
-          </div>
+        <div className="one">
+          {format(parseISO(frontmatter.date), "dd/MM/yyyy")}
+          <div className="two">
+            Latest Writing
+          </div> 
+        </div>
+        
         </h2>    
         <p>{frontmatter.description}</p>
       </CardLink>
@@ -144,8 +131,8 @@ const IndexPage = ({
         </Hero>
 
         
-          <PostsContainer>{post[0]}</PostsContainer>
-        
+        <PostsContainer>{post[0]}</PostsContainer>
+         
       </Container>
     </Layout>
   );

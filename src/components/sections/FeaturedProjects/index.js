@@ -15,7 +15,11 @@ const Wrapper = styled.section`
   transition: top ease 0.1s;
   position: relative;
 
-  
+  @media screen and (max-width: 700px) {
+ 
+    gap: calc(3 * var(--font-size-base));
+
+  }
 
 `;
 
@@ -65,6 +69,12 @@ const Project = styled.article`
 
     
     
+  }
+
+  @media screen and (max-width: 700px) {
+    .languages {
+      display: none;
+    }
   }
 
   

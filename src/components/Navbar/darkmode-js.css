@@ -2,3 +2,10 @@
   filter: invert(100%);
 }
 
+.darkmode--activated .dropdown {
+  color: #E0E0D2;
+}
+
+.darkmode--activated .hamburger {
+  filter: invert(100%);
+}

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import onClickOutside from "react-onclickoutside";
 import styled from "styled-components";
 import { Link } from "gatsby"
 import Logo from "../../images/icon.png";
@@ -7,6 +8,8 @@ import { blueBox } from "../../theme/mixins";
 import { UnstyledLink } from "../UnstyledLink";
 import Darkmode from 'darkmode-js';
 import '../Navbar/darkmode-js.css';
+import 'font-awesome/css/font-awesome.min.css';
+
 
 
 const options = {
@@ -33,7 +36,7 @@ const Wrapper = styled.div`
   padding-top: 20px;
   padding-right: 30px;
   padding-left: 30px;
-  padding-bottom: 30px;
+  padding-bottom: 50px;
 
   background-color: var(--color-background);
 
@@ -43,20 +46,85 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 
+  
+
+  
 `;
 
 const Nav = styled.nav`
-  padding-top: 15px;
-  padding-right: 20px;
-  padding-left: 20px;
-  padding-bottom: 15px;
-  display: flex;
-  gap: var(--font-size-md);
-  align-items: center;
-  white-space: nowrap;
-  box-shadow: 0 0.25rem 1rem rgb(0 0 0 / 12%);
-  border-radius: 3rem;
-  z-index: 13;
+  .nav-ul {
+    padding-top: 15px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 15px;
+    display: flex;
+    gap: var(--font-size-md);
+    align-items: center;
+    white-space: nowrap;
+    box-shadow: 0 0.25rem 1rem rgb(0 0 0 / 12%);
+    border-radius: 3rem;
+    z-index: 13;
+  }
+
+  .hamburger {
+    position: absolute;
+    right: 35px;
+    top: 35px;
+    background-color: transparent;
+    border: 0;
+    color: #646478;
+    font-size: 30px;
+    cursor: pointer;
+    display: none;
+    transform: translateY(-15%);
+    
+  }
+
+  .hamburger:focus {
+    outline: none;
+  }
+
+  .dropdown {
+    position: absolute;
+    box-shadow: 0 0.25rem 1rem rgb(0 0 0 / 12%);
+    border-radius: 1rem;
+    white-space: nowrap;
+    margin-left: 0;
+    display: none;
+    font-size: 18px;
+    transform: translateY(25%);
+    font-family: var(--font-sans);
+    font-weight: 450;
+    top: -15px;
+    right: 30px;
+    text-align: center;
+  }
+
+  
+
+  .dropdown ul li:before {
+    display: none;
+  }
+
+  .dropdown ul {
+    display:table;
+    margin:0px auto 5px auto;
+  }
+  
+  @media screen and (max-width: 700px) {
+    .nav-ul {
+      display: none;
+    }
+
+    .dropdown {
+      display: block;
+    }
+
+    .hamburger {
+      display: block;
+    }
+    
+  }
 
   
 `;
@@ -85,10 +153,21 @@ const NavLink = styled(UnstyledLink)`
   
 `;
 
+const Results = () => (
+  <div className="dropdown" id="dropdown">
+          <ul className="items" id="items">
+            <li><a href={"/"}>Home</a></li>
+            <li><a href={"/projects"}>Projects</a></li>
+            <li><a href={"/blog"}>Blog</a></li>
+          </ul>
+        </div>
+)
+
 export const Navbar = () => {
-
-
-
+  
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
+  Navbar.handleClickOutside = () => setIsOpen(false);
 
   return (
     <Wrapper>
@@ -96,16 +175,33 @@ export const Navbar = () => {
         <Link to ={"/"} aria-label="Brand Logo" className="brand__logo">
           <img class="site-logo" src={Logo} width="60" height="60"/>
         </Link>
-      </div>
 
+      </div>
+      
       <Nav>
-        {nav &&
-          nav.map(({ name, to }, i) => (
-            <NavLink to={to} key={i}>
-              {name}
-            </NavLink>
-          ))}
+        <button className="hamburger" id="hamburger" onClick={toggle}>
+          { !isOpen ? <i className="fa fa-bars"></i> : null}
+        </button> { isOpen ? <Results/> : null }
+        
+        
+        
+        <ul className="nav-ul" id="nav-ul">
+          {nav &&
+            nav.map(({ name, to }, i) => (
+              <NavLink to={to} key={i}>
+                {name}
+              </NavLink>
+            ))}
+        </ul>
+        
       </Nav>
     </Wrapper>
   );
+  
 };
+
+const clickOutsideConfig = {
+  handleClickOutside: () => Menu.handleClickOutside
+};
+
+export default onClickOutside(Navbar, clickOutsideConfig);
