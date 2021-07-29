@@ -46,7 +46,6 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  
 
   
 `;
@@ -65,6 +64,8 @@ const Nav = styled.nav`
     border-radius: 3rem;
     z-index: 13;
   }
+
+  
 
   .hamburger {
     position: absolute;
@@ -147,9 +148,7 @@ const NavLink = styled(UnstyledLink)`
     color: #E67219;
   }
 
-  .darkmode--activated & {
-    color: #E0E0D2;
-  }
+
   
 `;
 
