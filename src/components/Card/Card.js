@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const Body = styled.div`
@@ -10,8 +9,6 @@ const Body = styled.div`
   border-radius: var(--border-radius);
 
   padding: 1em;
-
-  /* max-width: 300px; */
 
   background-color: var(--color-card-background);
 
@@ -32,9 +29,4 @@ export const Card = ({ title, children }) => {
       {children}
     </Body>
   );
-};
-
-Card.propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.node,
 };

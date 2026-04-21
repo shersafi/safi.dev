@@ -1,12 +1,11 @@
 import React from "react";
 import { Link, graphql } from "gatsby";
-
-// Utilities
 import kebabCase from "lodash/kebabCase";
 
 import { Layout } from "../components/Layout";
 import { Container } from "../components/Container";
 import { TextLink } from "../components/TextLink";
+import { SEO } from "../components/SEO";
 
 const TagsPage = ({
   data: {
@@ -33,6 +32,8 @@ const TagsPage = ({
 
 export default TagsPage;
 
+export const Head = () => <SEO title="Tags" />;
+
 export const pageQuery = graphql`
   query {
     site {
@@ -41,7 +42,7 @@ export const pageQuery = graphql`
       }
     }
     allMdx(limit: 2000) {
-      group(field: frontmatter___tags) {
+      group(field: { frontmatter: { tags: SELECT } }) {
         fieldValue
         totalCount
       }

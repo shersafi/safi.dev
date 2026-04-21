@@ -1,27 +1,20 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Link } from "gatsby";
 
-export const UnstyledLink = ({ to, children, className }) => {
+export const UnstyledLink = ({ to, children, className, ...rest }) => {
   const isInternal = /^\/(?!\/)/.test(to);
 
   if (isInternal) {
     return (
-      <Link to={to} className={className}>
+      <Link to={to} className={className} {...rest}>
         {children}
       </Link>
     );
   }
 
   return (
-    <a href={to} target="_blank" rel="noopener noreferrer" className={className}>
+    <a href={to} target="_blank" rel="noopener noreferrer" className={className} {...rest}>
       {children}
     </a>
   );
-};
-
-UnstyledLink.propTypes = {
-  to: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
 };

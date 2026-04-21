@@ -2,6 +2,7 @@ import React from "react";
 import { Container } from "../components/Container";
 import { Emoji } from "../components/Emoji";
 import { Layout } from "../components/Layout";
+import { SEO } from "../components/SEO";
 
 const NotFoundPage = () => {
   return (
@@ -20,3 +21,5 @@ const NotFoundPage = () => {
 };
 
 export default NotFoundPage;
+
+export const Head = () => <SEO title="404 — Page Not Found" />;

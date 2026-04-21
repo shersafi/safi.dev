@@ -6,6 +6,7 @@ import { format, parseISO } from "date-fns";
 import { Container } from "../components/Container";
 import { Layout } from "../components/Layout";
 import { CardLink } from "../components/Card";
+import { SEO } from "../components/SEO";
 
 const PostSearch = styled.div`
   position: relative;
@@ -37,10 +38,9 @@ const PostsContainer = styled.div`
   grid-row-gap: var(--font-size-base);
 `;
 
-const Date = styled.p`
+const DateText = styled.p`
   font-style: italic;
   font-size: var(--font-size-sm);
-  
 `;
 
 const BlogPage = ({
@@ -58,18 +58,19 @@ const BlogPage = ({
     )
     .map(({ id, frontmatter, fields: { slug } }) => (
       <CardLink title={frontmatter.title} to={slug} key={id}>
-        <Date>{format(parseISO(frontmatter.date), "dd/MM/yyyy")}</Date>
+        <DateText>{format(parseISO(frontmatter.date), "dd/MM/yyyy")}</DateText>
         <p>{frontmatter.description}</p>
       </CardLink>
     ));
 
   return (
-    <Layout title="Blog">
+    <Layout>
       <Container as="div">
         <header>
           <h1>Blog</h1>
           <p>
-            A collection of what I am currently working on, most of which is Mathematics and programming-related. I may post an occasional, off-topic blog post though.
+            A collection of what I am currently working on, most of which is Mathematics and
+            programming-related. I may post an occasional, off-topic blog post though.
           </p>
           <PostSearch>
             <input
@@ -91,10 +92,12 @@ const BlogPage = ({
 
 export default BlogPage;
 
+export const Head = () => <SEO title="Blog" />;
+
 export const query = graphql`
   query {
     allMdx(
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { frontmatter: { date: DESC } }
       filter: { frontmatter: { published: { eq: true } } }
     ) {
       nodes {

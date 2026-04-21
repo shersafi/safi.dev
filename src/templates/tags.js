@@ -4,6 +4,7 @@ import { graphql } from "gatsby";
 import { Layout } from "../components/Layout";
 import { Container } from "../components/Container";
 import { TextLink } from "../components/TextLink";
+import { SEO } from "../components/SEO";
 
 const Tags = ({ pageContext, data }) => {
   const { tag } = pageContext;
@@ -33,11 +34,13 @@ const Tags = ({ pageContext, data }) => {
 
 export default Tags;
 
+export const Head = ({ pageContext }) => <SEO title={`Posts tagged "${pageContext.tag}"`} />;
+
 export const pageQuery = graphql`
-  query($tag: String) {
+  query ($tag: String) {
     allMdx(
       limit: 2000
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { frontmatter: { date: DESC } }
       filter: { frontmatter: { tags: { in: [$tag] } } }
     ) {
       totalCount

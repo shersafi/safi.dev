@@ -12,9 +12,9 @@ export const GlobalStyle = createGlobalStyle`
   :root {
     --color-text: hsla(240, 9%, 43%, 1);
     --color-heading: hsla(240, 18%, 15%, 1);
-    --color-background: hsla(0, 0%, 100%,1);
-    --color-accent: hsla(206, 80%, 50%, 1);
-    --color-accent-20: hsla(206, 80%, 50%, 0.2);
+    --color-background: hsla(0, 0%, 100%, 1);
+    --color-accent: hsla(155, 70%, 28%, 1);
+    --color-accent-20: hsla(155, 70%, 28%, 0.2);
     --color-warn: hsla(38, 100%, 53%, 1);
     --color-warn-20: hsla(38, 100%, 53%, 0.2);
     --color-error: hsla(348, 100%, 44%, 1);
@@ -25,6 +25,7 @@ export const GlobalStyle = createGlobalStyle`
     --border-radius: 5px;
 
     --box-shadow-light: 0 0px 5px 0 rgba(0, 0, 0, 0.1);
+    --box-shadow-pill: 0 0.25rem 1rem rgb(0 0 0 / 12%);
 
     --gap-width: 24px;
 
@@ -39,9 +40,19 @@ export const GlobalStyle = createGlobalStyle`
     --font-size-md: calc(var(--scaling-ratio) * var(--font-size-base));
     --font-size-lg: calc(var(--scaling-ratio) * var(--font-size-md));
     --font-size-xl: calc(var(--scaling-ratio) * var(--font-size-lg));
-
   }
-  
+
+  [data-theme="dark"] {
+    --color-text: hsla(240, 10%, 75%, 1);
+    --color-heading: hsla(0, 0%, 93%, 1);
+    --color-background: hsla(240, 10%, 10%, 1);
+    --color-accent: hsla(155, 55%, 42%, 1);
+    --color-accent-20: hsla(155, 55%, 42%, 0.2);
+    --color-card-background: hsla(240, 10%, 15%, 1);
+    --color-card-border: hsla(240, 10%, 30%, 1);
+    --box-shadow-pill: 0 0.25rem 1rem rgb(255 255 255 / 10%);
+  }
+
   html {
     font-size: var(--font-size-base);
     box-sizing: border-box;
@@ -57,7 +68,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   * {
-    /* scrollbar-width: thin; */
     scrollbar-color: var(--color-text) var(--color-background);
   }
 
@@ -69,11 +79,9 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 400;
 
     background-color: var(--color-background);
-
-    
-
     color: var(--color-text);
 
+    transition: background-color 0.3s ease, color 0.3s ease;
 
     &::-webkit-scrollbar {
       width: 12px;
@@ -93,9 +101,7 @@ export const GlobalStyle = createGlobalStyle`
 
   h1,h2,h3 {
     font-weight: 700;
-
     color: var(--color-heading);
-
     margin: 0;
     margin-bottom: calc(0.5 * var(--font-size-base));
   }
@@ -128,9 +134,6 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
 
-  /* Unsure if this is a good method but it removes
-     a lot of the annoying link styling.
-  */
   a {
     text-decoration: none;
     color: inherit;
@@ -162,19 +165,12 @@ export const GlobalStyle = createGlobalStyle`
     font-size: var(--font-size-base);
     text-align: center;
     font-style: italic;
-
-
     margin-top: calc(0.5 * var(--font-size-base));
   }
 
-  /* Custom <ol> styling 
-     https://www.joshwcomeau.com/css/styling-ordered-lists-with-css-counters/
-  */
   ol {
     counter-reset: bruh;
     list-style: none;
-    /* padding-left: calc(0.5 * var(--font-size-base)); */
-
     margin: calc(0.5 * var(--font-size-base)) 0;
   }
 
@@ -184,10 +180,8 @@ export const GlobalStyle = createGlobalStyle`
 
   ol li:before {
     content: counters(bruh, ".") ". ";
-
     color: var(--color-accent);
     font-weight: 500;
-
     padding-right: calc(0.25 * var(--font-size-base));
   }
 
@@ -200,17 +194,14 @@ export const GlobalStyle = createGlobalStyle`
 
       &:before {
         content: "•";
-      color: var(--color-accent);
-
-      padding-right: 8px;
-
-      font-weight: 700;
+        color: var(--color-accent);
+        padding-right: 8px;
+        font-weight: 700;
       }
     }
-    
   }
 
-  string, b {
+  strong, b {
     font-weight: 500;
     color: var(--color-heading);
   }
