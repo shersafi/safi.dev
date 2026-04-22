@@ -22,6 +22,10 @@ export const GlobalStyle = createGlobalStyle`
     --color-card-background: hsla(240, 20%, 97%, 1);
     --color-card-border: hsla(240, 20%, 75%, 1);
 
+    --glass-bg: rgba(255, 255, 255, 0.55);
+    --glass-border: rgba(255, 255, 255, 0.35);
+    --glass-blur: 16px;
+
     --border-radius: 5px;
 
     --box-shadow-light: 0 0px 5px 0 rgba(0, 0, 0, 0.1);
@@ -50,6 +54,8 @@ export const GlobalStyle = createGlobalStyle`
     --color-accent-20: hsla(155, 55%, 42%, 0.2);
     --color-card-background: hsla(240, 10%, 15%, 1);
     --color-card-border: hsla(240, 10%, 30%, 1);
+    --glass-bg: rgba(20, 20, 30, 0.55);
+    --glass-border: rgba(255, 255, 255, 0.08);
     --box-shadow-pill: 0 0.25rem 1rem rgb(255 255 255 / 10%);
   }
 
@@ -204,6 +210,44 @@ export const GlobalStyle = createGlobalStyle`
   strong, b {
     font-weight: 500;
     color: var(--color-heading);
+  }
+
+  @keyframes flyDown {
+    from {
+      opacity: 0;
+      transform: translateY(-80px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes flyUp {
+    from {
+      opacity: 0;
+      transform: translateY(60px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
   }
 
   ${PrismStyles}

@@ -7,6 +7,10 @@ import { FaXTwitter } from "react-icons/fa6";
 const FooterWrapper = styled.footer`
   color: var(--color-text);
   padding: 40px;
+  ${({ $animate }) =>
+    $animate
+      ? `animation: flyUp 1.5s cubic-bezier(0.22, 1, 0.36, 1) 1s both;`
+      : `animation: fadeIn 0.5s ease both;`}
 `;
 
 const CopyRight = styled.h4`
@@ -36,8 +40,8 @@ const SocialMedia = styled.div`
   }
 `;
 
-const Footer = () => (
-  <FooterWrapper>
+const Footer = ({ isHome = false }) => (
+  <FooterWrapper $animate={isHome}>
     <CopyRight>&copy; {new Date().getFullYear()} Sher Safi</CopyRight>
     <SocialMedia>
       <a
