@@ -496,254 +496,239 @@ function renderAdminPage(env) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Safi Media</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --sky: #d0ecff;
-      --cloud: #ffffff;
-      --panel: #fff8ee;
-      --panel-2: #fff3de;
-      --panel-border: #ffd68a;
-      --text: #3a2e24;
-      --text-secondary: #6b5a4e;
-      --muted: #9b8a7c;
-      --accent: #ff8a5c;
-      --accent-hover: #ff7040;
-      --accent-glow: rgba(255,138,92,0.25);
-      --mint: #7edcb5;
-      --mint-bg: #e8faf2;
-      --mint-border: #5cc99a;
-      --blueberry: #7ba7f7;
-      --blueberry-bg: #e5efff;
-      --blueberry-border: #5b8de8;
-      --pink-bg: #fff0f4;
-      --pink-border: #e87a9a;
-      --danger: #e85d5d;
-      --yellow-deep: #ffd426;
-      --radius: 20px;
-      --radius-sm: 14px;
-      --radius-xs: 10px;
-      --shadow-soft: 0 4px 20px rgba(0,0,0,0.06);
-      --shadow-btn: 0 3px 0 rgba(0,0,0,0.1);
-      font-family: 'Nunito', 'Comic Sans MS', ui-rounded, system-ui, sans-serif;
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #f5f5f5;
+      color: #1a1a1a;
+      min-height: 100vh;
+      font-size: 14px;
+      line-height: 1.5;
     }
-    *{box-sizing:border-box;margin:0}
-    body{
-      background: var(--sky);
-      background-image:
-        radial-gradient(ellipse 120px 60px at 8% 15%,rgba(255,255,255,.6) 0%,transparent 100%),
-        radial-gradient(ellipse 180px 80px at 85% 8%,rgba(255,255,255,.5) 0%,transparent 100%),
-        radial-gradient(ellipse 100px 50px at 50% 22%,rgba(255,255,255,.4) 0%,transparent 100%),
-        radial-gradient(ellipse 140px 55px at 25% 6%,rgba(255,255,255,.45) 0%,transparent 100%),
-        linear-gradient(180deg,#c4e4ff 0%,#d8f0ff 40%,#e8f6ff 100%);
-      background-attachment:fixed;
-      color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;
+    a { color: #0060df; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .header {
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      padding: 16px 0;
     }
-    body::before{
-      content:'';position:fixed;top:0;left:0;right:0;height:200px;
-      background:
-        radial-gradient(ellipse 80px 40px at 10% 85%,rgba(255,255,255,.7) 0%,transparent 100%),
-        radial-gradient(ellipse 120px 50px at 92% 75%,rgba(255,255,255,.6) 0%,transparent 100%),
-        radial-gradient(ellipse 60px 30px at 70% 90%,rgba(255,255,255,.5) 0%,transparent 100%);
-      pointer-events:none;z-index:0;
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 20px;
     }
-    .top-bar,.container{position:relative;z-index:1}
-    .top-bar{
-      background:linear-gradient(135deg,#ffe8a8 0%,#ffd06a 50%,#ffbe42 100%);
-      border-bottom:3px solid #e6a520;padding:18px 0;
-      box-shadow:0 4px 16px rgba(230,165,32,.2);
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
     }
-    .top-bar-inner{
-      width:min(1100px,calc(100vw - 40px));margin:0 auto;
-      display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+    h1 { font-size: 18px; font-weight: 600; }
+    .subtitle { color: #666; font-size: 13px; margin-top: 2px; }
+    .auth { display: flex; gap: 6px; }
+    input {
+      font: inherit;
+      padding: 6px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      outline: none;
+      background: #fff;
+      color: #1a1a1a;
     }
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand-icon{
-      width:46px;height:46px;display:flex;align-items:center;justify-content:center;
-      font-size:30px;filter:drop-shadow(0 2px 2px rgba(0,0,0,.12));
-      animation:bobble 3s ease-in-out infinite;
+    input:focus { border-color: #0060df; }
+    button {
+      font: inherit;
+      padding: 6px 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #fff;
+      color: #1a1a1a;
+      cursor: pointer;
+      font-weight: 500;
     }
-    @keyframes bobble{
-      0%,100%{transform:translateY(0) rotate(-3deg)}
-      50%{transform:translateY(-4px) rotate(3deg)}
+    button:hover { background: #f0f0f0; }
+    button:active { background: #e8e8e8; }
+    button.primary {
+      background: #1a1a1a;
+      color: #fff;
+      border-color: #1a1a1a;
     }
-    .brand h1{font-size:24px;font-weight:900;color:#5a3e14;letter-spacing:-.01em;text-shadow:0 1px 0 rgba(255,255,255,.5)}
-    .brand p{color:#7a5c28;font-size:13px;font-weight:600;line-height:1.3;margin-top:1px}
-    .auth{display:flex;gap:8px;align-items:center}
-    .container{width:min(1100px,calc(100vw - 40px));margin:0 auto;padding:28px 0 60px}
-    .sections{display:grid;gap:24px}
-    .section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-    .section-title{font-size:16px;font-weight:800;color:#5a3e14;letter-spacing:.02em;display:flex;align-items:center;gap:6px}
-    .section-title::before{content:'\u2B50';font-size:14px}
-    .panel{
-      background:var(--panel);border:3px solid var(--panel-border);
-      border-radius:var(--radius);padding:22px;
-      box-shadow:var(--shadow-soft),0 3px 0 #f0d080;
+    button.primary:hover { background: #333; }
+    button:disabled { opacity: 0.4; cursor: default; }
+
+    .content { padding: 24px 0 48px; }
+
+    .section + .section { margin-top: 28px; }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
     }
-    input,button{font:inherit;font-size:14px}
-    input{
-      width:100%;min-width:0;color:var(--text);background:#fff;
-      border:2.5px solid #e0cdb8;border-radius:var(--radius-xs);
-      padding:10px 14px;outline:none;
-      transition:border-color 150ms ease,box-shadow 150ms ease;
+    .section-head h2 { font-size: 14px; font-weight: 600; color: #444; }
+
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 20px;
     }
-    input::placeholder{color:var(--muted)}
-    input:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-glow)}
-    button{
-      border:0;border-radius:var(--radius-xs);padding:10px 18px;
-      color:#fff;background:var(--accent);font-weight:800;
-      cursor:pointer;white-space:nowrap;
-      box-shadow:var(--shadow-btn);position:relative;top:0;
-      transition:transform 100ms ease,box-shadow 100ms ease,background 120ms ease;
+    .upload-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
     }
-    button:hover{background:var(--accent-hover);transform:translateY(-1px);box-shadow:0 4px 0 rgba(0,0,0,.12)}
-    button:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.1)}
-    button.secondary{color:var(--text);background:var(--cloud);border:2.5px solid #ddd0c0;box-shadow:0 2px 0 #e8ddd0}
-    button.secondary:hover{background:#fff8ee;border-color:#ccbfaa;transform:translateY(-1px);box-shadow:0 3px 0 #e0d4c6}
-    button:disabled{opacity:.45;cursor:not-allowed;transform:none!important}
-    .upload-layout{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
-    .upload-left{display:grid;gap:12px}
-    .dropzone{
-      min-height:200px;display:grid;place-items:center;text-align:center;
-      border:3px dashed #d4c0a8;border-radius:var(--radius);
-      background:linear-gradient(170deg,#fffdf8 0%,#fff5e8 100%);
-      padding:28px 20px;cursor:pointer;
-      transition:border-color 200ms ease,background 200ms ease,transform 200ms ease;
+    .dropzone {
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border: 2px dashed #ccc;
+      border-radius: 6px;
+      padding: 24px;
+      cursor: pointer;
+      color: #666;
     }
-    .dropzone:hover{border-color:var(--accent);background:linear-gradient(170deg,#fff8ee,#ffeedd);transform:scale(1.01)}
-    .dropzone.dragging{border-color:var(--mint-border);background:var(--mint-bg);transform:scale(1.02)}
-    .dropzone-icon{
-      width:56px;height:56px;border-radius:50%;
-      background:linear-gradient(135deg,#ffe4b8,#ffd080);
-      border:3px solid #e6b850;display:grid;place-items:center;
-      margin:0 auto 12px;box-shadow:0 3px 8px rgba(230,184,80,.25);
+    .dropzone:hover { border-color: #999; }
+    .dropzone.dragging { border-color: #0060df; background: #f7faff; }
+    .dropzone strong { display: block; color: #1a1a1a; margin-bottom: 4px; }
+    .dropzone p { font-size: 13px; margin: 0; }
+    .file-input { display: none; }
+    .pick-wrap { margin-top: 8px; text-align: center; }
+    .progress-bar {
+      height: 4px;
+      background: #eee;
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 8px;
     }
-    .dropzone-icon svg{width:22px;height:22px;stroke:#8a6520;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
-    .dropzone strong{display:block;font-size:16px;font-weight:800;color:#5a3e14;margin-bottom:4px}
-    .dropzone p{color:var(--muted);font-size:13px;font-weight:600;line-height:1.5;max-width:260px;margin:0 auto}
-    .file-input{display:none}
-    .pick-btn-wrap{text-align:center}
-    .progress{height:10px;border-radius:999px;background:#f0e4d4;border:2px solid #ddd0be;overflow:hidden}
-    .progress>span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--yellow-deep),var(--mint));border-radius:999px;transition:width 180ms ease}
-    .status{min-height:20px;color:var(--muted);font-size:13px;font-weight:600}
-    .status.error{color:var(--danger)}
-    .upload-result{display:grid;gap:12px}
-    .link-row{display:grid;grid-template-columns:70px minmax(0,1fr) auto;gap:8px;align-items:center}
-    .link-row label{color:var(--muted);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
-    .link-row a{color:var(--blueberry);overflow-wrap:anywhere;text-decoration:none;font-size:13px;font-weight:600;transition:color 120ms ease}
-    .link-row a:hover{color:#4a72d0}
-    .link-row button{font-size:12px;padding:6px 10px}
-    .list{display:grid;gap:14px}
-    .asset{
-      background:var(--cloud);border:2.5px solid #e0d4c4;
-      border-radius:var(--radius-sm);padding:18px 20px;
-      box-shadow:0 2px 0 #eae0d2;
-      transition:border-color 150ms ease,transform 150ms ease,box-shadow 150ms ease;
+    .progress-bar > span {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: #0060df;
+      transition: width 150ms;
     }
-    .asset:hover{border-color:var(--panel-border);transform:translateY(-2px);box-shadow:0 5px 16px rgba(0,0,0,.06),0 3px 0 #e8dcc8}
-    .asset-top{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
-    .asset-info{flex:1;min-width:0}
-    .asset-title{font-weight:800;font-size:15px;line-height:1.4;overflow-wrap:anywhere;margin-bottom:5px;color:#3a2e24}
-    .asset-meta{color:var(--muted);font-size:13px;font-weight:600;line-height:1.6}
-    .asset-meta+.asset-meta{margin-top:2px}
-    .asset-actions{display:flex;gap:8px;flex-shrink:0;align-items:flex-start}
-    .asset-actions button{padding:7px 12px;font-size:12px}
-    .badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-    .badge{
-      display:inline-flex;align-items:center;gap:4px;
-      min-height:26px;border-radius:999px;border:2px solid #e0d4c4;background:#faf5ee;
-      color:var(--muted);padding:3px 12px;font-size:11px;font-weight:800;line-height:1.3;white-space:nowrap;
+    .status { font-size: 13px; color: #666; min-height: 18px; }
+    .status.error { color: #d32f2f; }
+    .result { margin-top: 8px; }
+
+    .link-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 0;
+      font-size: 13px;
     }
-    .badge-human{color:#2e8b64;border-color:var(--mint-border);background:var(--mint-bg)}
-    .badge-human::before{content:'\uD83D\uDC26';font-size:10px}
-    .badge-discord{color:#4a6ec0;border-color:var(--blueberry-border);background:var(--blueberry-bg)}
-    .badge-discord::before{content:'\uD83D\uDCAC';font-size:10px}
-    .badge-bot{color:#c04a5a;border-color:var(--pink-border);background:var(--pink-bg)}
-    .badge-bot::before{content:'\uD83E\uDD16';font-size:10px}
-    .asset-links{display:grid;gap:8px;margin-top:14px;padding-top:14px;border-top:2px dashed #eee2d2}
-    .sessions{margin-top:14px;display:none;border-top:2px dashed #eee2d2;padding-top:14px}
-    .sessions.open{display:block}
-    .sessions-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius-xs);border:2px solid #e8dcc8}
-    table{width:100%;border-collapse:collapse;font-size:12px}
-    th,td{text-align:left;border-bottom:1.5px solid #f0e8dc;padding:10px;vertical-align:top}
-    th{color:#8a7460;font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:.04em;background:#fef8ee;position:sticky;top:0}
-    td{overflow-wrap:anywhere;color:var(--text-secondary);font-weight:600}
-    tr:hover td{background:#fffbf4}
-    .empty{color:var(--muted);font-size:13px;font-weight:600;padding:8px 0}
-    .stat-row{display:flex;gap:6px;align-items:center;font-size:13px;font-weight:600;color:var(--text-secondary)}
-    .stat-sep{color:#d4c4b0;margin:0 2px}
-    @media(max-width:860px){
-      .top-bar-inner,.container{width:calc(100vw - 28px)}
-      .top-bar-inner{flex-direction:column;align-items:stretch;gap:12px}
-      .auth{width:100%}
-      .upload-layout{grid-template-columns:1fr}
-      .link-row{grid-template-columns:1fr;gap:6px}
-      .link-row label{font-size:10px}
-      .asset{padding:14px 16px}
-      .asset-top{flex-direction:column;gap:10px}
-      .asset-actions{align-self:flex-start}
+    .link-row .label {
+      color: #888;
+      min-width: 52px;
+      font-weight: 500;
+    }
+    .link-row a { overflow-wrap: anywhere; }
+    .link-row button { font-size: 12px; padding: 3px 8px; }
+
+    .list { display: grid; gap: 8px; }
+    .asset {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 14px 16px;
+    }
+    .asset-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .asset-info { flex: 1; min-width: 0; }
+    .asset-name { font-weight: 600; overflow-wrap: anywhere; }
+    .asset-stats { font-size: 13px; color: #666; margin-top: 3px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+    .tag {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 3px;
+      background: #f0f0f0;
+      color: #555;
+    }
+    .tag-human { background: #e6f4ea; color: #1b7340; }
+    .tag-discord { background: #e8eeff; color: #3b5998; }
+    .tag-bot { background: #fde8e8; color: #a93232; }
+    .asset-links {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #eee;
+    }
+    .asset-actions button { font-size: 12px; padding: 4px 10px; }
+    .sessions { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee; }
+    .sessions.open { display: block; }
+    .tbl-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid #eee; }
+    th { font-weight: 600; color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 0.03em; }
+    td { color: #444; overflow-wrap: anywhere; }
+    .empty { color: #888; font-size: 13px; }
+
+    @media (max-width: 700px) {
+      .header-row { flex-direction: column; align-items: stretch; }
+      .upload-grid { grid-template-columns: 1fr; }
+      .asset-top { flex-direction: column; gap: 8px; }
     }
   </style>
 </head>
 <body>
-  <div class="top-bar">
-    <div class="top-bar-inner">
-      <div class="brand">
-        <div class="brand-icon">\uD83D\uDC26</div>
-        <div>
-          <h1>Safi Media</h1>
-          <p>Upload MP4s to R2. Get Discord friendly native links.</p>
-        </div>
+  <div class="header">
+    <div class="wrap header-row">
+      <div>
+        <h1>Safi Media</h1>
+        <div class="subtitle">Upload MP4s to R2. Get Discord friendly native links.</div>
       </div>
       <form class="auth" id="authForm">
-        <input id="tokenInput" type="password" autocomplete="current-password" placeholder="Admin token" style="max-width:260px">
-        <button type="submit">Unlock</button>
+        <input id="tokenInput" type="password" autocomplete="current-password" placeholder="Admin token" style="width:200px">
+        <button type="submit" class="primary">Unlock</button>
       </form>
     </div>
   </div>
 
-  <div class="container">
-    <div class="sections">
-      <section>
-        <div class="section-header">
-          <span class="section-title">Upload</span>
-        </div>
-        <div class="panel">
-          <div class="upload-layout">
-            <div class="upload-left">
-              <input class="file-input" id="fileInput" type="file" accept="video/mp4,.mp4">
-              <div class="dropzone" id="dropzone" tabindex="0" role="button">
-                <div>
-                  <div class="dropzone-icon">
-                    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                  </div>
-                  <strong>Drop an MP4 here</strong>
-                  <p>or click to browse. Max size: ${escapeHtml(formatBytes(maxUploadBytes))}.</p>
-                </div>
-              </div>
-              <div class="pick-btn-wrap">
-                <button class="secondary" id="pickButton" type="button">Choose File</button>
+  <div class="wrap content">
+    <div class="section">
+      <div class="section-head"><h2>Upload</h2></div>
+      <div class="card">
+        <div class="upload-grid">
+          <div>
+            <input class="file-input" id="fileInput" type="file" accept="video/mp4,.mp4">
+            <div class="dropzone" id="dropzone" tabindex="0" role="button">
+              <div>
+                <strong>Drop an MP4 here</strong>
+                <p>or click to browse. Max size: ${escapeHtml(formatBytes(maxUploadBytes))}.</p>
               </div>
             </div>
-            <div class="upload-result">
-              <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
-              <div class="status" id="status"></div>
-              <div id="resultLinks"></div>
+            <div class="pick-wrap">
+              <button id="pickButton" type="button">Choose File</button>
             </div>
           </div>
+          <div>
+            <div class="progress-bar" aria-hidden="true"><span id="progressBar"></span></div>
+            <div class="status" id="status"></div>
+            <div class="result" id="resultLinks"></div>
+          </div>
         </div>
-      </section>
+      </div>
+    </div>
 
-      <section>
-        <div class="section-header">
-          <span class="section-title">Recent Uploads</span>
-          <button class="secondary" id="refreshButton" type="button" style="font-size:12px;padding:6px 14px;">Refresh</button>
-        </div>
-        <div class="status" id="listStatus"></div>
-        <div class="list" id="assetList"></div>
-      </section>
+    <div class="section">
+      <div class="section-head">
+        <h2>Recent Uploads</h2>
+        <button id="refreshButton" type="button">Refresh</button>
+      </div>
+      <div class="status" id="listStatus"></div>
+      <div class="list" id="assetList"></div>
     </div>
   </div>
 
@@ -843,7 +828,7 @@ function renderAdminPage(env) {
           return;
         }
         progressBar.style.width = "100%";
-        setStatus("Uploaded successfully.");
+        setStatus("Uploaded.");
         renderResult(payload.asset);
         loadAssets();
       });
@@ -888,15 +873,14 @@ function renderAdminPage(env) {
       resultLinks.querySelectorAll("button[data-copy]").forEach((button) => {
         button.addEventListener("click", () => {
           navigator.clipboard.writeText(button.dataset.copy);
-          const orig = button.textContent;
-          button.textContent = "Copied!";
-          setTimeout(() => button.textContent = orig, 1200);
+          button.textContent = "Copied";
+          setTimeout(() => button.textContent = "Copy", 1000);
         });
       });
     }
 
     function linkRow(label, href) {
-      return '<div class="link-row"><label>' + escapeHtml(label) + '</label><a href="' + escapeAttr(href) + '" target="_blank" rel="noreferrer">' + escapeHtml(href) + '</a><button class="secondary" type="button" data-copy="' + escapeAttr(href) + '">Copy</button></div>';
+      return '<div class="link-row"><span class="label">' + escapeHtml(label) + '</span><a href="' + escapeAttr(href) + '" target="_blank" rel="noreferrer">' + escapeHtml(href) + '</a><button type="button" data-copy="' + escapeAttr(href) + '">Copy</button></div>';
     }
 
     function renderAssets(assets) {
@@ -906,38 +890,31 @@ function renderAdminPage(env) {
       }
 
       assetList.innerHTML = assets.map((asset) => {
-        return '<article class="asset" data-slug="' + escapeAttr(asset.slug) + '">' +
+        return '<div class="asset" data-slug="' + escapeAttr(asset.slug) + '">' +
           '<div class="asset-top">' +
             '<div class="asset-info">' +
-              '<div class="asset-title">' + escapeHtml(asset.originalName) + '</div>' +
-              '<div class="stat-row">' +
-                '<span>' + escapeHtml(formatBytes(asset.sizeBytes)) + '</span>' +
-                '<span class="stat-sep">\u00b7</span>' +
-                '<span>' + escapeHtml(asset.sessions || 0) + ' sessions</span>' +
-                '<span class="stat-sep">\u00b7</span>' +
-                '<span>' + escapeHtml(asset.requests || 0) + ' requests</span>' +
-              '</div>' +
-              '<div class="badges">' +
-                (asset.likelyHumanSessions ? '<span class="badge badge-human">' + escapeHtml(asset.likelyHumanSessions) + ' Likely Human</span>' : '') +
-                (asset.discordSessions ? '<span class="badge badge-discord">' + escapeHtml(asset.discordSessions) + ' Discord</span>' : '') +
-                (asset.botSessions ? '<span class="badge badge-bot">' + escapeHtml(asset.botSessions) + ' Bot</span>' : '') +
+              '<div class="asset-name">' + escapeHtml(asset.originalName) + '</div>' +
+              '<div class="asset-stats">' + escapeHtml(formatBytes(asset.sizeBytes)) + ' \u00b7 ' + escapeHtml(asset.sessions || 0) + ' sessions \u00b7 ' + escapeHtml(asset.requests || 0) + ' requests</div>' +
+              '<div class="tags">' +
+                (asset.likelyHumanSessions ? '<span class="tag tag-human">' + escapeHtml(asset.likelyHumanSessions) + ' human</span>' : '') +
+                (asset.discordSessions ? '<span class="tag tag-discord">' + escapeHtml(asset.discordSessions) + ' discord</span>' : '') +
+                (asset.botSessions ? '<span class="tag tag-bot">' + escapeHtml(asset.botSessions) + ' bot</span>' : '') +
               '</div>' +
             '</div>' +
             '<div class="asset-actions">' +
-              '<button class="secondary" type="button" data-sessions="' + escapeAttr(asset.slug) + '">Sessions</button>' +
+              '<button type="button" data-sessions="' + escapeAttr(asset.slug) + '">Sessions</button>' +
             '</div>' +
           '</div>' +
           '<div class="asset-links">' + linkRow("Native", asset.nativeUrl) + linkRow("Watch", asset.watchUrl) + '</div>' +
           '<div class="sessions"></div>' +
-        '</article>';
+        '</div>';
       }).join("");
 
       assetList.querySelectorAll("button[data-copy]").forEach((button) => {
         button.addEventListener("click", () => {
           navigator.clipboard.writeText(button.dataset.copy);
-          const orig = button.textContent;
-          button.textContent = "Copied!";
-          setTimeout(() => button.textContent = orig, 1200);
+          button.textContent = "Copied";
+          setTimeout(() => button.textContent = "Copy", 1000);
         });
       });
 
@@ -955,7 +932,7 @@ function renderAdminPage(env) {
       }
 
       target.classList.add("open");
-      target.innerHTML = '<p class="empty">Loading sessions\u2026</p>';
+      target.innerHTML = '<p class="empty">Loading\u2026</p>';
 
       const response = await fetch("/api/assets/" + encodeURIComponent(slug) + "/sessions", {
         headers: { Authorization: "Bearer " + currentToken() },
@@ -968,58 +945,43 @@ function renderAdminPage(env) {
 
       const sessions = payload.sessions || [];
       if (!sessions.length) {
-        target.innerHTML = '<p class="empty">No sessions logged yet.</p>';
+        target.innerHTML = '<p class="empty">No sessions yet.</p>';
         return;
       }
 
-      target.innerHTML = '<div class="sessions-table-wrap"><table><thead><tr><th>Type</th><th>IP</th><th>Network</th><th>Requests</th><th>Last Seen</th><th>User Agent</th></tr></thead><tbody>' +
+      target.innerHTML = '<div class="tbl-wrap"><table><thead><tr><th>Type</th><th>IP</th><th>Network</th><th>Reqs</th><th>Last seen</th><th>User agent</th></tr></thead><tbody>' +
         sessions.map((session) => {
-          const geo = [
-            session.country,
-            session.colo,
-            session.asn ? "AS" + session.asn : "",
-            session.asOrganization,
-          ].filter(Boolean).join(" / ");
-          const flags = session.viewerFlags ? '<div class="asset-meta" style="margin-top:4px;font-size:11px">' + escapeHtml(session.viewerFlags) + '</div>' : "";
+          const geo = [session.country, session.colo, session.asn ? "AS" + session.asn : "", session.asOrganization].filter(Boolean).join(" / ");
           return '<tr>' +
-            '<td>' + viewerBadge(session.viewerKind, session.viewerConfidence) + flags + '</td>' +
-            '<td>' + escapeHtml(session.ip || "(unknown)") + '</td>' +
+            '<td><span class="tag ' + tagClass(session.viewerKind) + '">' + escapeHtml(viewerLabel(session.viewerKind)) + '</span></td>' +
+            '<td>' + escapeHtml(session.ip || "\u2014") + '</td>' +
             '<td>' + escapeHtml(geo || "\u2014") + '</td>' +
             '<td>' + escapeHtml(session.requestCount) + '</td>' +
             '<td>' + escapeHtml(formatDate(session.lastSeen)) + '</td>' +
-            '<td style="max-width:240px;font-size:11px">' + escapeHtml(session.userAgent || "\u2014") + '</td>' +
+            '<td style="max-width:220px;font-size:11px">' + escapeHtml(session.userAgent || "\u2014") + '</td>' +
           '</tr>';
         }).join("") +
       '</tbody></table></div>';
     }
 
-    function viewerBadge(kind, confidence) {
-      const normalized = String(kind || "unknown");
-      let className = "badge";
-      if (normalized === "likely_human") className += " badge-human";
-      if (normalized === "discord_preview" || normalized === "discord_proxy") className += " badge-discord";
-      if (normalized === "bot") className += " badge-bot";
-      return '<span class="' + className + '">' + escapeHtml(viewerLabel(normalized)) + ' \u00b7 ' + escapeHtml(confidence || "low") + '</span>';
+    function tagClass(kind) {
+      if (kind === "likely_human") return "tag-human";
+      if (kind === "discord_preview" || kind === "discord_proxy") return "tag-discord";
+      if (kind === "bot") return "tag-bot";
+      return "";
     }
 
     function viewerLabel(kind) {
-      const labels = {
-        likely_human: "Likely Human",
-        discord_preview: "Discord Preview",
-        discord_proxy: "Discord Proxy",
-        bot: "Bot",
-        unknown: "Unknown",
-      };
-      return labels[kind] || "Unknown";
+      return { likely_human: "human", discord_preview: "discord preview", discord_proxy: "discord proxy", bot: "bot", unknown: "unknown" }[kind] || "unknown";
     }
 
     function currentToken() {
       return tokenInput.value.trim() || sessionStorage.getItem("mediaAdminToken") || "";
     }
 
-    function setStatus(message, isError) {
-      statusEl.textContent = message;
-      statusEl.classList.toggle("error", Boolean(isError));
+    function setStatus(msg, err) {
+      statusEl.textContent = msg;
+      statusEl.classList.toggle("error", Boolean(err));
     }
 
     function clearStatus() {
@@ -1027,28 +989,28 @@ function renderAdminPage(env) {
       progressBar.style.width = "0";
     }
 
-    function escapeHtml(value) {
-      return String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[char]));
+    function escapeHtml(v) {
+      return String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[c]));
     }
 
-    function escapeAttr(value) {
-      return escapeHtml(value).replace(/\\n/g, " ");
+    function escapeAttr(v) {
+      return escapeHtml(v).replace(/\\n/g, " ");
     }
 
-    function formatBytes(bytes) {
-      const value = Number(bytes || 0);
-      if (value < 1024) return value + " B";
-      const units = ["KB", "MB", "GB"];
-      let size = value / 1024;
-      for (const unit of units) {
-        if (size < 1024 || unit === "GB") return size.toFixed(size < 10 ? 1 : 0) + " " + unit;
-        size = size / 1024;
+    function formatBytes(b) {
+      const v = Number(b || 0);
+      if (v < 1024) return v + " B";
+      const u = ["KB", "MB", "GB"];
+      let s = v / 1024;
+      for (const unit of u) {
+        if (s < 1024 || unit === "GB") return s.toFixed(s < 10 ? 1 : 0) + " " + unit;
+        s /= 1024;
       }
     }
 
-    function formatDate(value) {
-      if (!value) return "\u2014";
-      return new Date(value).toLocaleString();
+    function formatDate(v) {
+      if (!v) return "\u2014";
+      return new Date(v).toLocaleString();
     }
 
     loadAssets();
