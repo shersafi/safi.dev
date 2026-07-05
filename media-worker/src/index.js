@@ -576,11 +576,7 @@ function renderAdminPage(env) {
       border-radius: 6px;
       padding: 20px;
     }
-    .upload-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
+
     .dropzone {
       min-height: 180px;
       display: flex;
@@ -677,7 +673,6 @@ function renderAdminPage(env) {
 
     @media (max-width: 700px) {
       .header-row { flex-direction: column; align-items: stretch; }
-      .upload-grid { grid-template-columns: 1fr; }
       .asset-top { flex-direction: column; gap: 8px; }
     }
   </style>
@@ -687,7 +682,6 @@ function renderAdminPage(env) {
     <div class="wrap header-row">
       <div>
         <h1>Safi Media</h1>
-        <div class="subtitle">Upload MP4s to R2. Get Discord friendly native links.</div>
       </div>
       <form class="auth" id="authForm">
         <input id="tokenInput" type="password" autocomplete="current-password" placeholder="Admin token" style="width:200px">
@@ -700,25 +694,19 @@ function renderAdminPage(env) {
     <div class="section">
       <div class="section-head"><h2>Upload</h2></div>
       <div class="card">
-        <div class="upload-grid">
+        <input class="file-input" id="fileInput" type="file" accept="video/mp4,.mp4">
+        <div class="dropzone" id="dropzone" tabindex="0" role="button">
           <div>
-            <input class="file-input" id="fileInput" type="file" accept="video/mp4,.mp4">
-            <div class="dropzone" id="dropzone" tabindex="0" role="button">
-              <div>
-                <strong>Drop an MP4 here</strong>
-                <p>or click to browse. Max size: ${escapeHtml(formatBytes(maxUploadBytes))}.</p>
-              </div>
-            </div>
-            <div class="pick-wrap">
-              <button id="pickButton" type="button">Choose File</button>
-            </div>
-          </div>
-          <div>
-            <div class="progress-bar" aria-hidden="true"><span id="progressBar"></span></div>
-            <div class="status" id="status"></div>
-            <div class="result" id="resultLinks"></div>
+            <strong>Drop an MP4 here</strong>
+            <p>or click to browse. Max size: ${escapeHtml(formatBytes(maxUploadBytes))}.</p>
           </div>
         </div>
+        <div class="pick-wrap">
+          <button id="pickButton" type="button">Choose File</button>
+        </div>
+        <div class="progress-bar" aria-hidden="true"><span id="progressBar"></span></div>
+        <div class="status" id="status"></div>
+        <div class="result" id="resultLinks"></div>
       </div>
     </div>
 
