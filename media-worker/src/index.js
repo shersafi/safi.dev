@@ -559,7 +559,8 @@ function renderAdminPage(env) {
     button.primary:hover { background: #333; }
     button:disabled { opacity: 0.4; cursor: default; }
 
-    .content { padding: 24px 0 48px; }
+    .content { padding: 24px 0 48px; display: none; }
+    .content.unlocked { display: block; }
 
     .section + .section { margin-top: 40px; }
     .section-head {
@@ -746,6 +747,8 @@ function renderAdminPage(env) {
       loadAssets();
     });
 
+    const contentEl = document.querySelector(".content");
+
     pickButton.addEventListener("click", () => fileInput.click());
     fileInput.addEventListener("change", () => {
       const [file] = fileInput.files;
@@ -854,6 +857,7 @@ function renderAdminPage(env) {
         return;
       }
 
+      contentEl.classList.add("unlocked");
       listStatus.textContent = "";
       renderAssets(payload.assets || []);
     }
@@ -1007,7 +1011,7 @@ function renderAdminPage(env) {
       return new Date(v).toLocaleString();
     }
 
-    loadAssets();
+    if (currentToken()) loadAssets();
   </script>
 </body>
 </html>`;
