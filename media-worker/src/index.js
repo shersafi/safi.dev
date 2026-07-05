@@ -561,7 +561,7 @@ function renderAdminPage(env) {
 
     .content { padding: 24px 0 48px; }
 
-    .section + .section { margin-top: 28px; }
+    .section + .section { margin-top: 40px; }
     .section-head {
       display: flex;
       justify-content: space-between;
@@ -596,10 +596,14 @@ function renderAdminPage(env) {
     .file-input { display: none; }
     .pick-wrap { margin-top: 8px; text-align: center; }
     .progress-bar {
-      height: 4px;
-      background: #eee;
+      height: 0;
+      background: transparent;
       border-radius: 2px;
       overflow: hidden;
+    }
+    .progress-bar.active {
+      height: 4px;
+      background: #eee;
       margin-bottom: 8px;
     }
     .progress-bar > span {
@@ -826,6 +830,7 @@ function renderAdminPage(env) {
 
       setStatus("Uploading " + file.name + "\u2026");
       progressBar.style.width = "0";
+      progressBar.parentElement.classList.add("active");
       xhr.send(file);
     }
 
@@ -975,6 +980,7 @@ function renderAdminPage(env) {
     function clearStatus() {
       setStatus("");
       progressBar.style.width = "0";
+      progressBar.parentElement.classList.remove("active");
     }
 
     function escapeHtml(v) {
