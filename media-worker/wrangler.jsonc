@@ -1,0 +1,33 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "safi-media",
+  "main": "src/index.js",
+  "compatibility_date": "2026-07-05",
+  "workers_dev": true,
+  "observability": {
+    "enabled": true
+  },
+  "routes": [
+    {
+      "pattern": "media.safi.dev",
+      "custom_domain": true
+    }
+  ],
+  "vars": {
+    "PUBLIC_BASE_URL": "https://media.safi.dev",
+    "MAX_UPLOAD_BYTES": "100000000"
+  },
+  "r2_buckets": [
+    {
+      "binding": "MEDIA_BUCKET",
+      "bucket_name": "safi-media"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "safi-media",
+      "database_id": "c712b634-0c13-4a84-90c3-87c0521b4631"
+    }
+  ]
+}
